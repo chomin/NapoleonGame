@@ -40,6 +40,7 @@ public class User extends Player {
                 commands.add("ダイヤ");
                 commands.add("ハート");
                 commands.add("クラブ");
+                
                 int declaringTrumpSuit = Keyboard.inputCommand(question, commands);
                 
                 int declarableNum;
