@@ -37,6 +37,10 @@ public class Suit {
         }
     }
     
+    /**スートの強さからスート番号を取得する
+     * @param strength
+     * @return
+     */
     public static int getSuit(int strength) {
         switch(strength) {
         case 0: return 0;
@@ -50,5 +54,16 @@ public class Suit {
         }
     }
     
-    
+    public static int getReverseSuit(int suit) {
+        switch(suit) {
+        case 0: return 3;
+        case 1: return 2;
+        case 2: return 1;
+        case 3: return 0;
+        default:
+            System.err.println("スートの値が不適切です@getSuit()");
+            System.exit(1);
+            return -1;
+        }
+    }
 }

@@ -16,6 +16,8 @@ public class CPU extends Player {
         int declaredNum = game.getDeclaredNum();
         int trumpSuit = game.getTrumpSuit();
         
+        if(game.getNapoleon() == this) { return true; }
+        
         int[] suitNumbers = { 0, 0, 0, 0 }; // スート別の枚数(ジョーカーを除く)
         boolean[] hasRoleCards = { false, false, false, false }; // 役札(正、裏J、マイティ)を持つか
         
@@ -74,7 +76,13 @@ public class CPU extends Player {
         
         if (declaringTrumpSuit == -1) { return false; }
         
-        int declarableNum = (Suit.getSuitStrength(declaringTrumpSuit) < Suit.getSuitStrength(trumpSuit)) ? declaredNum : declaredNum + 1;
+        
+        int declarableNum;
+        if (trumpSuit == 4) {   // 初期値
+            declarableNum = 13;
+        } else {
+            declarableNum = (Suit.getSuitStrength(declaringTrumpSuit) < Suit.getSuitStrength(trumpSuit)) ? declaredNum : declaredNum + 1;
+        }
         
         if (declarableNum <= maxSuitNum+7 && declarableNum <= 20) {
             game.setDeclaredNum(declarableNum);

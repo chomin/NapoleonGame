@@ -3,7 +3,10 @@ package se.t1655002.card.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
+
+import se.t1655002.card.entity.Card;
 
 public class Keyboard {
     
@@ -69,7 +72,35 @@ public class Keyboard {
         } while (commandNum < 0 || commandNum >= commands.size());
         
         return commandNum;
+    }
+    
+public static Card inputCard() {
+        int suit, number;
+        String question = "スートを入力してください.";
+        List<String> commands = new ArrayList<>();
+        commands.clear();
+        commands.add("スペード");
+        commands.add("ダイヤ");
+        commands.add("ハート");
+        commands.add("クラブ");
+        suit = Keyboard.inputCommand(question, commands);
+        while(true){
+            System.out.println("番号を入力してください.");
+            number = Keyboard.inputNumber();
+            if(number > 0 && number < 14) { break; }
+            else { System.out.println("正しい番号を入力してください."); }
+        }
         
+        Card card = new Card(suit, number);
+        question = card.toString() + " でよろしいですか？";
+        commands.clear();
+        commands.add("はい");
+        commands.add("いいえ");
+        if(Keyboard.inputCommand(question, commands) == 1) {
+            card = Keyboard.inputCard();
+        }
+        
+        return card;
     }
     
 }

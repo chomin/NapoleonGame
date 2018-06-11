@@ -20,6 +20,8 @@ public class User extends Player {
         int trumpSuit = game.getTrumpSuit();
         Player napoleon = game.getNapoleon();
         
+        if(napoleon == this) { return true; }
+        
         if (napoleon == null) {
             System.out.println("現時点で立候補者はいません.");
         } else {

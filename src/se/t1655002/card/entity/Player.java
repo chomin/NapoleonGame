@@ -21,9 +21,13 @@ public abstract class Player {
     }
     
     public void showHand() {
+        System.out.println();
+        System.out.println("----------" + name + "さんの手札を表示します----------");
         for(Card card: hand) {
             System.out.print(card + " ");
         }
+        System.out.println();
+        System.out.println("----------------------------------------");
         System.out.println();
     }
     
