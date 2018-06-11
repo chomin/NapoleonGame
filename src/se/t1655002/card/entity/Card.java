@@ -95,6 +95,26 @@ public class Card {
         System.out.println(this);
     }
     
+    /**強さを判定(マイティ0表1裏2切り札3~15台札16~28他29)(重複による欠番あり)
+     * @return
+     */
+    public int getTrickStrength(int trumpSuit, int trickSuit) { 
+        
+        if(suit == 0 && number == 1) { return 0; }
+        else if (suit == trumpSuit && number == 11) { return 1; }
+        else if (suit == Suit.getReverseSuit(trumpSuit) && number == 11) { return 2; }
+        else if (suit == trumpSuit) { 
+            if (number == 1) { return 3; }
+            else { return 3+14-number; }
+        } else if (suit == trickSuit) { 
+            if (number == 1) { return 16; }
+            else { return 16+14-number; }
+        } else { return 29; }
+        
+            
+            
+    }
+    
     /**
      * @param suit
      * @param number
@@ -113,7 +133,4 @@ public class Card {
         return new Card(suit, number).toString();
     }
     
-    public static int getTrickStrength() { // 強さを判定(マイティ表裏切り札台札他)
-        
-    }
 }

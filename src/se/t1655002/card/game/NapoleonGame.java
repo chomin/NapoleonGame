@@ -23,7 +23,7 @@ public class NapoleonGame {
     private Player parent;
     private ArrayList<Player> players;
     private ArrayList<Card> firstTableCards = new ArrayList<>();
-    private int trumpSuit = 4; // ナポレオンが宣言したスート
+    private int trumpSuit = 4; // ナポレオンが宣言したスート(切り札)
     private int declaredNum = 13; // ナポレオンが宣言した枚数
     private Player napoleon;
     private Player adjutant; // 副官
