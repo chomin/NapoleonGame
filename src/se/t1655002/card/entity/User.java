@@ -72,5 +72,72 @@ public class User extends Player {
         }
         
     }
+
+    @Override
+    public void chooseAdjutantAndChangeCards(NapoleonGame game) {
+        
+        
+        
+        
+        User us = (User) game.getNapoleon();
+        
+        String question = "副官を指名してください.";
+        List<String> commands = new ArrayList<>();
+        commands.add("オールマイティ");
+        commands.add("正ジャック");
+        commands.add("裏ジャック");
+        commands.add("その他");
+        switch(Keyboard.inputCommand(question, commands)){
+        case 0: 
+            game.setAdjutantCard(new Card(0, 1));
+            break;
+        case 1: 
+            game.setAdjutantCard(new Card(game.getTrumpSuit(), 11));
+            break;
+        case 2: 
+            game.setAdjutantCard(new Card(Suit.getReverseSuit(game.getTrumpSuit()), 11));
+            break;
+        case 3:
+            System.out.println("副官のカードを直接入力していただきます.");
+            game.setAdjutantCard(Keyboard.inputCard());
+            break;
+        }
+        
+        System.out.println("中央のカードを引きます.");
+        for(Card card: game.getFirstTableCards()) {
+            us.addHand(card);
+        }
+        us.sortHand();
+        us.showHand();
+        for(int i = 0; i < 3; i++) {
+            question = "捨てるカードを選んでください(" + (i+1) + "枚目)";
+            commands.clear();
+            for (Card card: us.getHand()) {
+                commands.add(card.toString());
+            }
+            us.getHand().remove(Keyboard.inputCommand(question, commands));
+        }
+        
+    }
+
+    @Override
+    public void playACard(NapoleonGame game) {
+        
+        showHand();
+        String question = "プレイするカードを選んでください.";
+        List<String> commands = new ArrayList<>();
+        for(Card card: hand) {
+            commands.add(card.toString());
+        }
+        int index = Keyboard.inputCommand(question, commands);
+        if (hand.get(index).getSuit() == game.getAdjutantCard().getSuit() && hand.get(index).getNumber() == game.getAdjutantCard().getNumber()) {
+            game.setAdjutant(this);
+            game.setAdjutantAppeared(true);
+        }
+        game.getTablecards().put(this, hand.get(index));
+        hand.remove(index);
+        
+        
+    }
     
 }

@@ -35,6 +35,9 @@ public abstract class Player {
     
     public abstract boolean runForNapoleon(NapoleonGame game);
     
+    public abstract void chooseAdjutantAndChangeCards(NapoleonGame game);
+    
+    public abstract void playACard(NapoleonGame game);
     
     public String getName() {
         return name;

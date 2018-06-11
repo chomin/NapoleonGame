@@ -112,4 +112,8 @@ public class Card {
     public static String getString(int suit, int number) {
         return new Card(suit, number).toString();
     }
+    
+    public static int getTrickStrength() { // 強さを判定(マイティ表裏切り札台札他)
+        
+    }
 }
