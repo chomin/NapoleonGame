@@ -1,10 +1,12 @@
 package se.t1655002.card.entity;
 
+import se.t1655002.card.game.NapoleonGame;
+
 /**
  * @author t1655002 トランプのカードのクラス。スートと数を持つ。
  */
 public class Card {
-    
+
     /**
      * 0（スペード）, 1（ダイヤ）, 2（ハート）, 3（クラブ）,-1(ジョーカー) 立候補のときは、0>2>1>3の順で強い
      */
@@ -13,21 +15,21 @@ public class Card {
      * 1~13, 0(ジョーカー)
      */
     private int number;
-    
+
     public Card(int suit, int number) {
         super();
         this.suit = suit;
         this.number = number;
     }
-    
+
     public int getSuit() {
         return suit;
     }
-    
+
     public int getNumber() {
         return number;
     }
-    
+
     /**
      * カード情報を整数表現(インデクス)に変換する 整数表現とは，[[ スペード1の13まで, ダイヤ1の13まで, ハート1の13まで,
      * クラブ1の13まで]]を，この順番に，0から51までの通し番号をつけたものである． また，ジョーカーの整数表現は，-1である
@@ -41,7 +43,7 @@ public class Card {
             return -1;
         }
     }
-    
+
     /**
      * 絵柄文字列と数字文字列を連接したもの
      * 
@@ -49,9 +51,9 @@ public class Card {
      */
     public String toString() {
         String suitStr, numberStr;
-        
+
         suitStr = Suit.toString(suit);
-        
+
         switch (number) {
         case 0: // ジョーカー
             numberStr = "";
@@ -84,37 +86,66 @@ public class Card {
             numberStr = "";
             break;
         }
-        
+
         return String.format(suitStr + numberStr);
     }
-    
+
     /**
      * toString()で得られた文字列をそのまま表示する
      */
     public void show() {
         System.out.println(this);
     }
-    
-    /**強さを判定(マイティ0表1裏2切り札3~15台札16~28他29)(重複による欠番あり)
+
+    /**
+     * 強さを判定(マイティ0表1裏2切り札3~15台札16~28他29)(重複による欠番あり)
+     * 
      * @return
      */
-    public int getTrickStrength(int trumpSuit, int trickSuit) { 
-        
-        if(suit == 0 && number == 1) { return 0; }
-        else if (suit == trumpSuit && number == 11) { return 1; }
-        else if (suit == Suit.getReverseSuit(trumpSuit) && number == 11) { return 2; }
-        else if (suit == trumpSuit) { 
-            if (number == 1) { return 3; }
-            else { return 3+14-number; }
-        } else if (suit == trickSuit) { 
-            if (number == 1) { return 16; }
-            else { return 16+14-number; }
-        } else { return 29; }
-        
-            
-            
+    public int getTrickStrength(NapoleonGame game) {
+        int trumpSuit = game.getTrumpSuit();
+        int trickSuit = game.getTrickSuit();
+
+        if (suit == 0 && number == 1) {
+            return 0;
+        } else if (suit == trumpSuit && number == 11) {
+            return 1;
+        } else if (suit == Suit.getReverseSuit(trumpSuit) && number == 11) {
+            return 2;
+        } else if (suit == trumpSuit) {
+            if (number == 1) {
+                return 3;
+            } else {
+                return 3 + 14 - number;
+            }
+        } else if (suit == trickSuit) {
+            if (number == 1) {
+                return 16;
+            } else {
+                return 16 + 14 - number;
+            }
+        } else {
+            return 29;
+        }
+
     }
-    
+
+    /**
+     * @return このカードがアナーカード(絵札)であるならtrue
+     */
+    public boolean isAnnor() {
+        switch (number) {
+        case 1:
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+            return true;
+        default:
+            return false;
+        }
+    }
+
     /**
      * @param suit
      * @param number
@@ -123,7 +154,7 @@ public class Card {
     public static int getIndex(int suit, int number) {
         return new Card(suit, number).toIndex();
     }
-    
+
     /**
      * @param suit
      * @param number
@@ -132,5 +163,5 @@ public class Card {
     public static String getString(int suit, int number) {
         return new Card(suit, number).toString();
     }
-    
+
 }

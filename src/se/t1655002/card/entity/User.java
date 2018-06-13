@@ -2,6 +2,7 @@ package se.t1655002.card.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import se.t1655002.card.game.NapoleonGame;
 import se.t1655002.card.util.Keyboard;
@@ -123,8 +124,9 @@ public class User extends Player {
     @Override
     public void playACard(NapoleonGame game) {
         
+        game.showTable();
         showHand();
-        String question = "プレイするカードを選んでください.";
+        String question = "プレイするカードを選んでください";
         List<String> commands = new ArrayList<>();
         for(Card card: hand) {
             commands.add(card.toString());

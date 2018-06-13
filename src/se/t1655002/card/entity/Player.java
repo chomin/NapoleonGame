@@ -10,6 +10,7 @@ public abstract class Player {
     protected String name;
     protected int point = 0;
     protected ArrayList<Card> hand = new ArrayList<>();
+    protected int annorNum = 0;
     
     public void addHand(Card card) {
         hand.add(card);
@@ -56,6 +57,14 @@ public abstract class Player {
     }
     public void setHand(ArrayList<Card> hand) {
         this.hand = hand;
+    }
+
+    public int getAnnorNum() {
+        return annorNum;
+    }
+
+    public void setAnnorNum(int annorNum) {
+        this.annorNum = annorNum;
     }
 
     

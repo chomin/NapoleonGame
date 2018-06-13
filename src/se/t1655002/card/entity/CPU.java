@@ -162,21 +162,22 @@ public class CPU extends Player {
         for (Card card : hand) {
             if (card.getSuit() == game.getTrumpSuit()) {
                 game.getTablecards().put(this, card);
-                hand.remove(card);
+                
                 if (card.getSuit() == game.getAdjutantCard().getSuit() && card.getNumber() == game.getAdjutantCard().getNumber()) {
                     game.setAdjutant(this);
                     game.setAdjutantAppeared(true);
                 }
+                hand.remove(card);
                 return;
             }
         }
         
         game.getTablecards().put(this, hand.get(0));
-        hand.remove(0);
         if (hand.get(0).getSuit() == game.getAdjutantCard().getSuit() && hand.get(0).getNumber() == game.getAdjutantCard().getNumber()) {
             game.setAdjutant(this);
             game.setAdjutantAppeared(true);
         }
+        hand.remove(0);
         
         // TODO 自動生成されたメソッド・スタブ
         
