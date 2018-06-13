@@ -10,35 +10,82 @@ import se.t1655002.card.entity.CPU;
 import se.t1655002.card.entity.Card;
 import se.t1655002.card.entity.CardDeck;
 import se.t1655002.card.entity.Player;
-import se.t1655002.card.entity.Suit;
 import se.t1655002.card.entity.User;
-import se.t1655002.card.util.Keyboard;
+import se.t1655002.card.util.Suit;
 
+/**
+ * @author NakaiKohei
+ * ナポレオンゲームを管理するクラス
+ */
 public class NapoleonGame {
 
+    /**
+     * 対戦回数
+     */
     private int numberOfGames;
+    /**
+     * 山札
+     */
     private CardDeck deck = new CardDeck();
     /**
      * カード及び出した人の情報
      */
     private HashMap<Player, Card> tablecards = new HashMap<>();
+    /**
+     * 親
+     */
     private Player parent;
+    /**
+     * 参加しているプレイヤー
+     */
     private ArrayList<Player> players;
+    /**
+     * 最初に場に置かれる3枚のカード
+     */
     private ArrayList<Card> firstTableCards = new ArrayList<>();
-    private int trumpSuit = 4; // ナポレオンが宣言したスート(切り札)
-    private int declaredNum = 13; // ナポレオンが宣言した枚数
+    /**
+     * ナポレオンが宣言したスート(切り札)
+     */
+    private int trumpSuit = 4; 
+    /**
+     * ナポレオンが宣言した枚数
+     */
+    private int declaredNum = 13; 
+    /**
+     * ナポレオンとなったプレーヤー
+     */
     private Player napoleon;
-    private Player adjutant; // 副官
+    /**
+     * 副官となったプレーヤー
+     */
+    private Player adjutant; 
+    /**
+     * このカードを持っている人が副官となる
+     */
     private Card adjutantCard;
+    /**
+     * 副官が発覚したか
+     */
     private boolean isAdjutantAppeared = false;
-    private int trickSuit; // 台札
+    /**
+     * 台札のスート
+     */
+    private int trickSuit; 
 
+    /**
+     * NapoleonGameのコンストラクタ
+     * @param numberOfGames 対戦回数
+     * @param players 参加するプレーヤーのリスト(5人とすること)
+     */
     public NapoleonGame(int numberOfGames, List<Player> players) {
         super();
         this.numberOfGames = numberOfGames;
         this.players = (ArrayList<Player>) players;
     }
 
+    /**
+     * 実際にナポレオンで遊ぶ
+     */
     public void play() {
         game: for (int gameNum = 0; gameNum < numberOfGames; gameNum++) {
             System.out.println((gameNum + 1) + "回戦を始めます。");
@@ -250,6 +297,9 @@ public class NapoleonGame {
         System.out.println("====================");
     }
 
+    /**
+     * ナポレオンチームが勝った場合の得点処理をする
+     */
     public void napoleonWin() {
 
         System.out.println();
@@ -271,6 +321,9 @@ public class NapoleonGame {
         System.out.println("++++++++++++++++++++");
     }
 
+    /**
+     * ナポレオンチームが負けた場合の得点処理をする
+     */
     public void napoleonLose() {
 
         System.out.println();

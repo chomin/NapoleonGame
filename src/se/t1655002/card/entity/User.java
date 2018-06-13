@@ -6,14 +6,26 @@ import java.util.Map;
 
 import se.t1655002.card.game.NapoleonGame;
 import se.t1655002.card.util.Keyboard;
+import se.t1655002.card.util.Suit;
 
+/**
+ * @author NakaiKohei
+ * ユーザーのクラス、Playerを継承
+ */
 public class User extends Player {
 
+    /**
+     * コンストラクタ
+     * @param name 名前
+     */
     public User(String name) {
         super();
         this.name = name;
     }
 
+    /* (非 Javadoc)
+     * @see se.t1655002.card.entity.Player#runForNapoleon(se.t1655002.card.game.NapoleonGame)
+     */
     @Override
     public boolean runForNapoleon(NapoleonGame game) {
 
@@ -77,6 +89,9 @@ public class User extends Player {
 
     }
 
+    /* (非 Javadoc)
+     * @see se.t1655002.card.entity.Player#chooseAdjutantAndChangeCards(se.t1655002.card.game.NapoleonGame)
+     */
     @Override
     public void chooseAdjutantAndChangeCards(NapoleonGame game) {
 
@@ -121,6 +136,9 @@ public class User extends Player {
 
     }
 
+    /* (非 Javadoc)
+     * @see se.t1655002.card.entity.Player#playACard(se.t1655002.card.game.NapoleonGame)
+     */
     @Override
     public void playACard(NapoleonGame game) {
 

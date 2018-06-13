@@ -8,10 +8,20 @@ import se.t1655002.card.entity.Player;
 import se.t1655002.card.entity.User;
 import se.t1655002.card.util.Keyboard;
 
+/**
+ * @author NakaiKohei
+ * NapoleonGameを管理するクラス
+ */
 public class NapoleonGameManager {
     
+    /**
+     * 管理するNapoleonGame
+     */
     private NapoleonGame game;
 
+    /**
+     * コンストラクタ。同時にgameとPlayerを作成.
+     */
     public NapoleonGameManager() {
         
         super();
@@ -35,6 +45,9 @@ public class NapoleonGameManager {
         game = new NapoleonGame(3, players);
     }
     
+    /**
+     * NapoleonGameで実際に遊ぶ.
+     */
     public void playGame() {
         System.out.println(game.getNumberOfGames() + "回勝負のナポレオンを開始します.");
         game.play();

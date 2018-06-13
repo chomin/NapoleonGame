@@ -1,6 +1,7 @@
 package se.t1655002.card.entity;
 
 import se.t1655002.card.game.NapoleonGame;
+import se.t1655002.card.util.Suit;
 
 /**
  * @author t1655002 トランプのカードのクラス。スートと数を持つ。
@@ -97,10 +98,12 @@ public class Card {
         System.out.println(this);
     }
 
+ 
+     
     /**
-     * 強さを判定(マイティ0表1裏2切り札3~15台札16~28他29)(重複による欠番あり)
-     * 
-     * @return
+     * トリックにおける、このカードの強さを取得する(マイティ0表1裏2切り札3~15台札16~28他29)(重複による欠番あり)
+     * @param game ナポレオンゲーム
+     * @return このカードの強さ
      */
     public int getTrickStrength(NapoleonGame game) {
         int trumpSuit = game.getTrumpSuit();
@@ -147,8 +150,8 @@ public class Card {
     }
 
     /**
-     * @param suit
-     * @param number
+     * @param suit　スート
+     * @param number 番号
      * @return 対応するカードの整数表現を返す
      */
     public static int getIndex(int suit, int number) {
@@ -156,8 +159,8 @@ public class Card {
     }
 
     /**
-     * @param suit
-     * @param number
+     * @param suit　スート
+     * @param number　番号
      * @return 対応するカードの文字列表現を返す
      */
     public static String getString(int suit, int number) {

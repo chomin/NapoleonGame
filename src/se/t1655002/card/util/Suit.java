@@ -1,7 +1,12 @@
-package se.t1655002.card.entity;
+package se.t1655002.card.util;
 
 public class Suit {
     
+    /**
+     * スートの文字列を取得する
+     * @param suit スート
+     * @return スートの文字列
+     */
     public static String toString(int suit) {
         switch (suit) {
         case 0:
@@ -20,9 +25,10 @@ public class Suit {
         }
     }
     
-    /**立候補のときは、0>2>1>3の順で強い
-     * @param suit
-     * @return
+    /**
+     * 立候補のときのスートの強さを取得、立候補のときは、0>2>1>3の順で強い
+     * @param suit スート
+     * @return スートの強さ
      */
     public static int getSuitStrength(int suit) {
         switch(suit) {
@@ -38,8 +44,8 @@ public class Suit {
     }
     
     /**スートの強さからスート番号を取得する
-     * @param strength
-     * @return
+     * @param strength スートの強さ
+     * @return スート
      */
     public static int getSuit(int strength) {
         switch(strength) {
@@ -54,6 +60,11 @@ public class Suit {
         }
     }
     
+    /**
+     * 同じ色のもう一方のスートを取得する
+     * @param suit スート
+     * @return　同じ色のもう一方のスート
+     */
     public static int getReverseSuit(int suit) {
         switch(suit) {
         case 0: return 3;

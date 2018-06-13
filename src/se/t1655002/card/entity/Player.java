@@ -5,25 +5,54 @@ import java.util.Comparator;
 
 import se.t1655002.card.game.NapoleonGame;
 
+/**
+ * @author NakaiKohei
+ * プレーヤーに関する抽象クラス
+ */
 public abstract class Player {
 
+    /**
+     * 名前
+     */
     protected String name;
+    /**
+     * 得点
+     */
     protected int point = 0;
+    /**
+     * 手札
+     */
     protected ArrayList<Card> hand = new ArrayList<>();
+    /**
+     * 取得したアナーカードの枚数
+     */
     protected int annorNum = 0;
+    /**
+     * 立候補するか.(一度でも辞退したら決まるまではfalseになる)
+     */
     protected boolean willRun = true;
     
 
 
+    /**
+     * 手札にカードを加える
+     * @param card カード
+     */
     public void addHand(Card card) {
         hand.add(card);
     }
     
+    /**
+     * 手札をカードのindex順にソートする
+     */
     public void sortHand() {
         Comparator<Card> c = Comparator.comparing(Card::toIndex);
         hand.sort(c);
     }
     
+    /**
+     * 手札を表示する
+     */
     public void showHand() {
         System.out.println();
         System.out.println("----------" + name + "さんの手札を表示します----------");
@@ -37,10 +66,23 @@ public abstract class Player {
     
     
     
+    /**
+     * ナポレオンに立候補する
+     * @param game ナポレオンゲーム
+     * @return 立候補したか
+     */
     public abstract boolean runForNapoleon(NapoleonGame game);
     
+    /**
+     * 副官を指名し、場の札を引いて3枚捨てる
+     * @param game ナポレオンゲーム
+     */
     public abstract void chooseAdjutantAndChangeCards(NapoleonGame game);
     
+    /**
+     * トリックにおいてカードを場に出す
+     * @param game ナポレオンゲーム
+     */
     public abstract void playACard(NapoleonGame game);
     
     public String getName() {

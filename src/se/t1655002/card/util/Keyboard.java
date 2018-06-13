@@ -8,6 +8,10 @@ import java.util.List;
 
 import se.t1655002.card.entity.Card;
 
+/**
+ * @author NakaiKohei
+ * キーボード入力に関するユーティリティクラス
+ */
 public class Keyboard {
     
     /**
@@ -52,6 +56,12 @@ public class Keyboard {
         return number;
     }
     
+    /**
+     * 質問とコマンドを表示し、ユーザーにコマンドを入力してもらう。
+     * @param question 質問の文字列
+     * @param commands 受け付けるコマンドの文字列のリスト
+     * @return 入力されたコマンド
+     */
     public static int inputCommand(String question, List<String> commands) {
         
         int commandNum = -1;
@@ -74,7 +84,11 @@ public class Keyboard {
         return commandNum;
     }
     
-public static Card inputCard() {
+    /**
+     * ユーザーにトランプカードに関する情報を入力してもらい、そのカードを返す.
+     * @return 入力されたトランプのカード
+     */
+    public static Card inputCard() {
         int suit, number;
         String question = "スートを入力してください.";
         List<String> commands = new ArrayList<>();
@@ -84,11 +98,14 @@ public static Card inputCard() {
         commands.add("ハート");
         commands.add("クラブ");
         suit = Keyboard.inputCommand(question, commands);
-        while(true){
+        while (true) {
             System.out.println("番号を入力してください.");
             number = Keyboard.inputNumber();
-            if(number > 0 && number < 14) { break; }
-            else { System.out.println("正しい番号を入力してください."); }
+            if (number > 0 && number < 14) {
+                break;
+            } else {
+                System.out.println("正しい番号を入力してください.");
+            }
         }
         
         Card card = new Card(suit, number);
@@ -96,7 +113,7 @@ public static Card inputCard() {
         commands.clear();
         commands.add("はい");
         commands.add("いいえ");
-        if(Keyboard.inputCommand(question, commands) == 1) {
+        if (Keyboard.inputCommand(question, commands) == 1) {
             card = Keyboard.inputCard();
         }
         

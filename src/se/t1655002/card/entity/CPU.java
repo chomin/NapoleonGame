@@ -1,16 +1,27 @@
 package se.t1655002.card.entity;
 
 import se.t1655002.card.game.NapoleonGame;
+import se.t1655002.card.util.Suit;
 
 public class CPU extends Player {
     
-    private int[] suitNumbers = { 0, 0, 0, 0 }; // スート別の枚数(ジョーカーを除く)
+    /**
+     * スート別の枚数(ジョーカーを除く)
+     */
+    private int[] suitNumbers = { 0, 0, 0, 0 }; 
     
+    /**
+     * コンストラクタ
+     * @param name 名前
+     */
     public CPU(String name) {
         super();
         this.name = name;
     }
     
+    /**
+     * 手札の枚数をスート別にカウントする
+     */
     private void countSuitNumbers() {
         for (Card card : hand) {
             
@@ -37,6 +48,9 @@ public class CPU extends Player {
         }
     }
     
+    /* (非 Javadoc)
+     * @see se.t1655002.card.entity.Player#runForNapoleon(se.t1655002.card.game.NapoleonGame)
+     */
     @Override
     public boolean runForNapoleon(NapoleonGame game) {
         
@@ -140,6 +154,9 @@ public class CPU extends Player {
         
     }
     
+    /* (非 Javadoc)
+     * @see se.t1655002.card.entity.Player#chooseAdjutantAndChangeCards(se.t1655002.card.game.NapoleonGame)
+     */
     @Override
     public void chooseAdjutantAndChangeCards(NapoleonGame game) {
         
@@ -175,6 +192,9 @@ public class CPU extends Player {
         
     }
     
+    /* (非 Javadoc)
+     * @see se.t1655002.card.entity.Player#playACard(se.t1655002.card.game.NapoleonGame)
+     */
     @Override
     public void playACard(NapoleonGame game) {
         
@@ -245,7 +265,6 @@ public class CPU extends Player {
         }
         hand.remove(0);
         
-        // TODO 自動生成されたメソッド・スタブ
         
     }
     
