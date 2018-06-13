@@ -17,15 +17,19 @@ public class CPU extends Player {
             switch (card.getSuit()) {
             case 0:
                 suitNumbers[0]++;
+                break;
                 
             case 1:
                 suitNumbers[1]++;
+                break;
                 
             case 2:
                 suitNumbers[2]++;
+                break;
                 
             case 3:
                 suitNumbers[3]++;
+                break;
                 
             default: // ジョーカー
                 break;
@@ -40,10 +44,14 @@ public class CPU extends Player {
         int trumpSuit = game.getTrumpSuit();
         
         if (game.getNapoleon() == this) {
+            willRun = true;
             return true;
         }
         
         boolean[] hasRoleCards = { false, false, false, false }; // 役札(正、裏J、マイティ)を持つか
+        for (int i=0; i<suitNumbers.length; i++) {
+            suitNumbers[i] = 0;
+        }
         
         for (Card card : hand) {
             
@@ -58,24 +66,28 @@ public class CPU extends Player {
                         hasRoleCards[i] = true;
                     }
                 }
+                break;
             case 1:
                 suitNumbers[1]++;
                 if (card.getNumber() == 11) {
                     hasRoleCards[1] = true;
                     hasRoleCards[2] = true;
                 }
+                break;
             case 2:
                 suitNumbers[2]++;
                 if (card.getNumber() == 11) {
                     hasRoleCards[1] = true;
                     hasRoleCards[2] = true;
                 }
+                break;
             case 3:
                 suitNumbers[3]++;
                 if (card.getNumber() == 11) {
                     hasRoleCards[0] = true;
                     hasRoleCards[3] = true;
                 }
+                break;
             default: // ジョーカー
                 break;
             }
@@ -99,6 +111,8 @@ public class CPU extends Player {
         }
         
         if (declaringTrumpSuit == -1) {
+            willRun = false;
+            System.out.println(name + ": 立候補しません.");
             return false;
         }
         
@@ -110,12 +124,17 @@ public class CPU extends Player {
                     : declaredNum + 1;
         }
         
-        if (declarableNum <= maxSuitNum + 7 && declarableNum <= 20) {
+        if (declarableNum <= maxSuitNum + 9 && declarableNum <= 20) {
+//            System.out.println(suitNumbers[0] + " " + suitNumbers[1] + " " + suitNumbers[2] + " " + suitNumbers[3] );
             game.setDeclaredNum(declarableNum);
             game.setTrumpSuit(declaringTrumpSuit);
             game.setNapoleon(this);
+            willRun = true;
+            System.out.println(name + ": " + Suit.toString(declaringTrumpSuit) + "で" + declarableNum + "枚");
             return true;
         } else {
+            willRun = false;
+            System.out.println(name + ": 立候補しません.");
             return false;
         }
         
@@ -159,6 +178,52 @@ public class CPU extends Player {
     @Override
     public void playACard(NapoleonGame game) {
         
+        
+        for (Card card : hand) {
+            if (game.getParent() == this || game.getTrickSuit() == card.getSuit()) { //切り札＝＝台札のとき
+                if (card.getSuit() == game.getTrumpSuit()) { // できるだけ切り札を出す
+                    game.getTablecards().put(this, card);
+
+                    if (card.getSuit() == game.getAdjutantCard().getSuit()
+                            && card.getNumber() == game.getAdjutantCard().getNumber()) { // 副官発覚
+                        game.setAdjutant(this);
+                        game.setAdjutantAppeared(true);
+                    }
+                    hand.remove(card);
+                    return;
+                }
+            }
+        }
+        
+        for (Card card : hand) {
+            if (game.getParent() == this || card.getSuit() == game.getTrickSuit() || card.getSuit() == -1) { // 台札!=切り札のときは台札を出す
+                game.getTablecards().put(this, card);
+
+                if (card.getSuit() == game.getAdjutantCard().getSuit()
+                        && card.getNumber() == game.getAdjutantCard().getNumber()) { // 副官発覚
+                    game.setAdjutant(this);
+                    game.setAdjutantAppeared(true);
+                }
+                hand.remove(card);
+                return;
+            }
+        }
+        
+        for (Card card : hand) {
+                if (card.getSuit() == game.getTrumpSuit()) {    // 台札がなければできるだけ切り札を出す 
+                    game.getTablecards().put(this, card);
+
+                    if (card.getSuit() == game.getAdjutantCard().getSuit()
+                            && card.getNumber() == game.getAdjutantCard().getNumber()) {
+                        game.setAdjutant(this);
+                        game.setAdjutantAppeared(true);
+                    }
+                    hand.remove(card);
+                    return;
+                }
+            
+        }
+        
         for (Card card : hand) {
             if (card.getSuit() == game.getTrumpSuit()) {
                 game.getTablecards().put(this, card);
@@ -172,6 +237,7 @@ public class CPU extends Player {
             }
         }
         
+        // 台札も切り札もなければ適当に出す
         game.getTablecards().put(this, hand.get(0));
         if (hand.get(0).getSuit() == game.getAdjutantCard().getSuit() && hand.get(0).getNumber() == game.getAdjutantCard().getNumber()) {
             game.setAdjutant(this);

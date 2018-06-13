@@ -11,7 +11,10 @@ public abstract class Player {
     protected int point = 0;
     protected ArrayList<Card> hand = new ArrayList<>();
     protected int annorNum = 0;
+    protected boolean willRun = true;
     
+
+
     public void addHand(Card card) {
         hand.add(card);
     }
@@ -67,7 +70,13 @@ public abstract class Player {
         this.annorNum = annorNum;
     }
 
-    
+    public boolean isWillRun() {
+        return willRun;
+    }
+
+    public void setWillRun(boolean willRun) {
+        this.willRun = willRun;
+    }
     
     
 }
