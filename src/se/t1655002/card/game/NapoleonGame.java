@@ -11,6 +11,7 @@ import se.t1655002.card.entity.Card;
 import se.t1655002.card.entity.CardDeck;
 import se.t1655002.card.entity.Player;
 import se.t1655002.card.entity.User;
+import se.t1655002.card.util.Keyboard;
 import se.t1655002.card.util.Suit;
 
 /**
@@ -221,6 +222,8 @@ public class NapoleonGame {
                 
                 System.out.println(strengthStr);
                 System.out.println(strongestPlayer.getName() + "さんが" + annorCount + "枚獲得しました.");
+                System.out.println("Enterで次に進む");
+                Keyboard.inputString();
                 
             }
 
@@ -248,7 +251,8 @@ public class NapoleonGame {
                 pl.setAnnorNum(0);
                 pl.setWillRun(true);
             }
-
+            System.out.println("Enterで次に進む");
+            Keyboard.inputString();
         }
 
         // 得点判定、及び勝敗の表示
